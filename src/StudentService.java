@@ -16,4 +16,15 @@ public class StudentService {
         System.out.println(s.getId() + " | " + s.getName() + " | " + s.getCourse() ); 
        }    
     }
+
+    public void searchStudent(int id){
+        for (Student s : students){
+            if (s.getId() == id){
+                System.out.println("Found :");
+                System.out.println(s.getId() + " " + s.getName() + " " + s.getCourse());
+                return;
+            }
+        } 
+        System.out.println("Student not found");
+    }
 }
