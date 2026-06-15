@@ -42,7 +42,10 @@ public class Main{
                 break;
 
             case 4 :
-                
+                System.out.print("Enter Id : ");
+                int deleteId = input.nextInt();
+                service.deleteStudent(deleteId);
+                break;
            }
         }
     }
