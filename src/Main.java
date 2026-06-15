@@ -46,7 +46,15 @@ public class Main{
                 int deleteId = input.nextInt();
                 service.deleteStudent(deleteId);
                 break;
+
+            case 5 :
+                System.out.print("Program Closed.");
+                break;
+
+            default :
+                System.out.println("Invalid choice.");
+
            }
-        }
+        } while(choice != 5);
     }
 }
