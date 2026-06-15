@@ -13,6 +13,37 @@ public class Main{
            System.out.println("Exit");
 
            choice = input.nextInt();
+           switch(choice){
+            case 1:
+                System.out.print("ID: ");
+                int id = input.nextInt();
+
+                input.nextLine();
+
+                System.out.print("Name: ");
+                String name = input.nextLine();
+
+                System.out.print("Course: ");
+                String course = input.nextLine();
+
+                Student student = new Student(id, name, course);
+
+                service.addStudent(student);
+                break;
+
+            case 2 :
+                service.viewStudent();
+                break;
+
+            case 3 :
+                System.out.print("Enter Id : ");
+                int searchId = input.nextInt();
+                service.searchStudent(searchId);
+                break;
+
+            case 4 :
+                
+           }
         }
     }
 }
