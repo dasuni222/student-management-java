@@ -1,58 +1,131 @@
-import java.util.ArrayList;
 import java.sql.*;
 
 public class StudentService {
 
-    String url = "jdbc:mysql://localhost:3306/mydatabase";
-    String user = "root";
-    String password = "your_password";
-
-    Connection getConnection() throws Exception {
-        return DriverManager.getConnection(url, user, password);
-    }
-    public void addStudent(Student student){
+    // CREATE
+    public void addStudent(Student s) {
         try {
-            Connection conn = getConnection();
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO students (id, name, course) VALUES (?, ?, ?)");
-            stmt.setInt(1, student.getId());
-            stmt.setString(2, student.getName());
-            stmt.setString(3, student.getCourse());
-            stmt.executeUpdate();
-            System.out.println("Student added successfully");
+            Connection conn = DBConnection.getConnection();
+
+            String sql = "INSERT INTO students (id, name, course) VALUES (?, ?, ?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, s.getId());
+            ps.setString(2, s.getName());
+            ps.setString(3, s.getCourse());
+
+            ps.executeUpdate();
+
+            System.out.println("✔ Student Added");
+
+            conn.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void viewStudent(){
-       if (students.isEmpty()){
-            System.out.println("No students found");
-            return;
-       }
-       for (Student s : students){
-        System.out.println(s.getId() + " | " + s.getName() + " | " + s.getCourse() ); 
-       }    
-    }
+    // READ ALL
+    public void viewStudents() {
+        try {
+            Connection conn = DBConnection.getConnection();
 
-    public void searchStudent(int id){
-        for (Student s : students){
-            if (s.getId() == id){
-                System.out.println("Found :");
-                System.out.println(s.getId() + " " + s.getName() + " " + s.getCourse());
-                return;
-            }
-        } 
-        System.out.println("Student not found");
-    }
+            String sql = "SELECT * FROM students";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
 
-    public void deleteStudent(int id){
-        for (Student s : students){
-            if (s.getId() == id){
-                students.remove(s);
-                System.out.println("Student Deleted");
-                return;
+            System.out.println("\n--- STUDENT LIST ---");
+
+            while (rs.next()) {
+                System.out.println(
+                        rs.getInt("id") + " | " +
+                        rs.getString("name") + " | " +
+                        rs.getString("course")
+                );
             }
+
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        System.out.println("Student not found");
+    }
+
+    // SEARCH
+    public void searchStudent(int id) {
+        try {
+            Connection conn = DBConnection.getConnection();
+
+            String sql = "SELECT * FROM students WHERE id=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                System.out.println("✔ Found:");
+                System.out.println(
+                        rs.getInt("id") + " | " +
+                        rs.getString("name") + " | " +
+                        rs.getString("course")
+                );
+            } else {
+                System.out.println("Not Found");
+            }
+
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // DELETE
+    public void deleteStudent(int id) {
+        try {
+            Connection conn = DBConnection.getConnection();
+
+            String sql = "DELETE FROM students WHERE id=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int rows = ps.executeUpdate();
+
+            if (rows > 0)
+                System.out.println("Deleted");
+            else
+                System.out.println("Not Found");
+
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // UPDATE (NEW POLISH FEATURE ⭐)
+    public void updateStudent(Student s) {
+        try {
+            Connection conn = DBConnection.getConnection();
+
+            String sql = "UPDATE students SET name=?, course=? WHERE id=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, s.getName());
+            ps.setString(2, s.getCourse());
+            ps.setInt(3, s.getId());
+
+            int rows = ps.executeUpdate();
+
+            if (rows > 0)
+                System.out.println("Updated");
+            else
+                System.out.println("Not Found");
+
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
