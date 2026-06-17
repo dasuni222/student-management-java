@@ -1,10 +1,27 @@
 import java.util.ArrayList;
-public class StudentService {
-    ArrayList<Student> students = new ArrayList<Student>();
+import java.sql.*;
 
+public class StudentService {
+
+    String url = "jdbc:mysql://localhost:3306/mydatabase";
+    String user = "root";
+    String password = "your_password";
+
+    Connection getConnection() throws Exception {
+        return DriverManager.getConnection(url, user, password);
+    }
     public void addStudent(Student student){
-        students.add(student);
-        System.out.println("Student added successfully");
+        try {
+            Connection conn = getConnection();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO students (id, name, course) VALUES (?, ?, ?)");
+            stmt.setInt(1, student.getId());
+            stmt.setString(2, student.getName());
+            stmt.setString(3, student.getCourse());
+            stmt.executeUpdate();
+            System.out.println("Student added successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void viewStudent(){
