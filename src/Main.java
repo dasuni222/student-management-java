@@ -18,6 +18,21 @@ public class Main {
 
             choice = input.nextInt();
             
+            switch (choice) {
+
+                case 1:
+                    System.out.print("ID: ");
+                    int id = input.nextInt();
+                    input.nextLine();
+
+                    System.out.print("Name: ");
+                    String name = input.nextLine();
+
+                    System.out.print("Course: ");
+                    String course = input.nextLine();
+
+                    service.addStudent(new Student(id, name, course));
+                    break;
           }    
     }    
 }
