@@ -33,6 +33,16 @@ public class Main {
 
                     service.addStudent(new Student(id, name, course));
                     break;
+
+
+                case 2:
+                    service.viewStudents();
+                    break;
+
+                case 3:
+                    System.out.print("Enter ID: ");
+                    service.searchStudent(input.nextInt());
+                    break;
           }    
     }    
 }
