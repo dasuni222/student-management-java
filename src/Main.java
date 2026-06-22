@@ -48,6 +48,12 @@ public class Main {
                     System.out.print("Enter ID: ");
                     service.deleteStudent(input.nextInt());
                     break;
+
+                case 5:
+                    System.out.print("ID: ");
+                    int uid = input.nextInt();
+                    input.nextLine();
+
           }    
     }    
 }
