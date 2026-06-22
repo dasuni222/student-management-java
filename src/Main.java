@@ -43,6 +43,11 @@ public class Main {
                     System.out.print("Enter ID: ");
                     service.searchStudent(input.nextInt());
                     break;
+
+                case 4:
+                    System.out.print("Enter ID: ");
+                    service.deleteStudent(input.nextInt());
+                    break;
           }    
     }    
 }
