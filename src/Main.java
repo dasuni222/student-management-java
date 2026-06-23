@@ -54,6 +54,15 @@ public class Main {
                     int uid = input.nextInt();
                     input.nextLine();
 
+                System.out.print("New Name: ");
+                    String uname = input.nextLine();
+
+                    System.out.print("New Course: ");
+                    String ucourse = input.nextLine();
+
+                    service.updateStudent(new Student(uid, uname, ucourse));
+                    break;
+
           }    
     }    
 }
