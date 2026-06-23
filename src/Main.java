@@ -54,7 +54,7 @@ public class Main {
                     int uid = input.nextInt();
                     input.nextLine();
 
-                System.out.print("New Name: ");
+                    System.out.print("New Name: ");
                     String uname = input.nextLine();
 
                     System.out.print("New Course: ");
