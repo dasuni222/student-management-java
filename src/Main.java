@@ -63,6 +63,15 @@ public class Main {
                     service.updateStudent(new Student(uid, uname, ucourse));
                     break;
 
-          }    
+                case 6:
+                    System.out.println("Exiting...");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice!");
+            }
+
+
+        }    
     }    
 }
