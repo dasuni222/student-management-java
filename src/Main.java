@@ -6,7 +6,8 @@ public class Main {
         Scanner input = new Scanner(System.in);
         StudentService service = new StudentService();
 
-          do {
+        int choice;
+        do {
             System.out.println("\n===== STUDENT MENU =====");
             System.out.println("1. Add Student");
             System.out.println("2. View Students");
@@ -72,6 +73,6 @@ public class Main {
             }
 
 
-        }    
+        } while (choice != 6);   
     }    
 }
